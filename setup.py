@@ -4,7 +4,17 @@ from setuptools import setup
 from setuptools import Extension
 
 
-ext = Extension(
+ext_pyc = Extension(
+    'pyc',
+    sources=[
+        'pyc.c',
+    ],
+    include_dirs=[
+        os.path.abspath('./')
+    ],
+)
+
+ext_numpyc = Extension(
     'numpyc',
     define_macros=[],
     sources=[
@@ -30,6 +40,7 @@ setup(
         'main.py'
     ],
     ext_modules=[
-        ext
+        ext_pyc,
+        ext_numpyc,
     ],
 )

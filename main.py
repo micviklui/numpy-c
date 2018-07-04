@@ -13,3 +13,12 @@ print(numpyc.inout_ndarray.__doc__,
       type(y),
       y.shape,
       y)
+
+import pyc
+class D(object):
+    def __init__(self, _x):
+        self.x = _x
+
+din = D(x)
+dout = pyc.inout_pyobj(din)
+print(x, din, dout)
