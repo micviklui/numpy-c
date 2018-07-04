@@ -1,7 +1,7 @@
-import asdf
+import numpyc
 
-a = asdf.fill_array()
-print(asdf.fill_array.__doc__,
+a = numpyc.return_ndarray()
+print(numpyc.return_ndarray.__doc__,
       type(a),
       a.shape,
       a)

@@ -8,16 +8,16 @@
 #include <stdio.h>
 
 
-static PyObject *fill_array(PyObject *self, PyObject *args);
+static PyObject *return_ndarray(PyObject *self, PyObject *args);
 
 static PyMethodDef module_methods[] = {
-    {"fill_array", fill_array, METH_VARARGS, "fill the input array"},
+    {"return_ndarray", return_ndarray, METH_VARARGS, "return a numpy.ndarray"},
     {NULL, NULL, 0, NULL}
 };
 
-PyMODINIT_FUNC initasdf(void) {
+PyMODINIT_FUNC initnumpyc(void) {
 
-    PyObject *m = Py_InitModule3("asdf", module_methods, "test numpy-c array handling");
+    PyObject *m = Py_InitModule3("numpyc", module_methods, "test numpy-c array handling");
     if (m == NULL)
         return;
 
@@ -25,7 +25,7 @@ PyMODINIT_FUNC initasdf(void) {
     import_array();
 }
 
-static PyObject *fill_array(PyObject *self ,PyObject *args) {
+static PyObject *return_ndarray(PyObject *self ,PyObject *args) {
 
     double *vector = calloc(2, sizeof(double));
     vector[0] = -12.345;

@@ -5,10 +5,10 @@ from setuptools import Extension
 
 
 ext = Extension(
-    'asdf',
+    'numpyc',
     define_macros=[],
     sources=[
-        'asdf.c',
+        'numpyc.c',
     ],
     depends=[],
     include_dirs=[
