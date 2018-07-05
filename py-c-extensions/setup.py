@@ -1,3 +1,6 @@
+# build and run in source root dir with
+#   python setup.py build_ext --inplace
+#   python main.py
 import os
 import sys
 import subprocess
