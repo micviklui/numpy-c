@@ -22,3 +22,6 @@ class D(object):
 din = D(x)
 dout = pyc.inout_pyobj(din)
 print(x, din, dout)
+
+olist = pyc.out_pylist()
+print(olist)

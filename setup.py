@@ -1,4 +1,5 @@
 import os
+#import sysconfig
 import numpy as np
 from setuptools import setup
 from setuptools import Extension
@@ -10,7 +11,16 @@ ext_pyc = Extension(
         'pyc.c',
     ],
     include_dirs=[
+        #sysconfig.get_config_vars()['INCLUDEDIR'],
+        # probably use output of (see also pkgconfig)
+        #   pkg-config --libs glib-2.0
+        #   pkg-config --cflags glib-2.0
+        '/usr/include/glib-2.0',
+        '/usr/lib/x86_64-linux-gnu/glib-2.0/include',
         os.path.abspath('./')
+    ],
+    libraries=[
+        'glib-2.0',
     ],
 )
 

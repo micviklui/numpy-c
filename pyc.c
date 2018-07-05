@@ -1,12 +1,15 @@
 #include <Python.h>
 #include <numpy/arrayobject.h>
+#include <glib.h>
 #include <stdio.h>
 
 
 static PyObject *inout_pyobj(PyObject *self, PyObject *args);
+static PyObject *out_pylist(PyObject *self, PyObject *args);
 
 static PyMethodDef module_methods[] = {
     {"inout_pyobj", inout_pyobj, METH_VARARGS, "input and return a python object"},
+    {"out_pylist", out_pylist, METH_VARARGS, "output a python list object"},
     {NULL, NULL, 0, NULL}
 };
 
@@ -44,4 +47,20 @@ static PyObject *inout_pyobj(PyObject *self ,PyObject *args) {
     return o;
 }
 
+static PyObject *out_pylist(PyObject *self, PyObject *args) {
+    GArray *a = g_array_new(FALSE, FALSE, sizeof(char*));
+    char* first = "hello", *second = "there", *third = "world";
+    g_array_append_val(a, first);
+    g_array_append_val(a, second);
+    g_array_append_val(a, third);
+    printf("There are now %d items in the array\n", a->len);
+    printf("The first item is '%s'\n", g_array_index(a, char*, 0));
+    printf("The third item is '%s'\n", g_array_index(a, char*, 2));
+    g_array_remove_index(a, 1);
+    printf("There are now %d items in the array\n", a->len);
 
+    //PyObject *a_array = PyArray
+    g_array_free(a, FALSE);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
