@@ -67,18 +67,26 @@ void show_array(double *a, long n)
 }
 
 
-double *get_array(long n)
+void get_array(double *in, long n_in, double *out, long n_out)
 {
-    ARRAY_CREATE(double, a2);
-    for(int i = 0; i < n; ++i) {
-        ARRAY_PUSH(a2, i);
+    ARRAY_CREATE(double, a);
+    for(int i = 0; i < n_in; ++i) {
+        ARRAY_PUSH(a, in[i]);
+    }
+    for(int i = 0; i < 3; ++i) {
+        ARRAY_PUSH(a, (double)i);
     }
 
-    long n2 = ARRAY_SIZE(a2);
-    double *pa2 = a2;
-    while (n2--) {
-        printf("(%.1f, %ld)\n", *pa2, n2);
-        pa2++;
+
+    long np = ARRAY_SIZE(a);
+    double *pa = a;
+    printf("printing from c: %p\n", pa);
+    while (np--) {
+        printf("(%.1f, %ld)\n", *pa, np);
+        pa++;
     }
-    return a2;
+
+    out = a;
+    n_out = ARRAY_SIZE(a);
+    //n_out = ARRAY_CAPACITY(a);
 }
