@@ -5,6 +5,11 @@
 #pragma once
 #include <stdlib.h>
 
+/*
+ * raw = ARR - 2
+ * raw[0] : len of ARR
+ * raw[1] : capacity of ARR
+ */
 #define ARRAY_CREATE(T, arr) \
     T *arr = NULL;\
     do {\
@@ -41,7 +46,19 @@
         arr[raw[0] - 1] = (value);\
     } while(0)
 
-//#define ARRAY_RESIZE(ARR, size)
-//#define ARRAY_SHRINK_TO_FIT(ARR)
-// use realloc to resize the memory buffer in order to have size/raw[0] equal to
-// capacity/raw[1].
+#define ARRAY_RESIZE(ARR, size)\
+    do {\
+        size_t *raw = ((size_t *) (arr) - 2);\
+        raw[0] = size;\
+        raw[1] = size;\
+        raw = realloc(raw, 2 * sizeof(size_t) + raw[0] * sizeof((arr)));\
+        (arr) = (void *) &raw[2];\
+    } while(0)
+
+#define ARRAY_SHRINK_TO_FIT(ARR)\
+    do {\
+        size_t *raw = ((size_t *) (arr) - 2);\
+        raw[1] = raw[0];\
+        raw = realloc(raw, 2 * sizeof(size_t) + raw[0] * sizeof((arr)));\
+        (arr) = (void *) &raw[2];\
+    } while(0)
