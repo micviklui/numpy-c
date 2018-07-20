@@ -24,4 +24,4 @@ dout = pyc.inout_pyobj(din)
 print(x, din, dout)
 
 olist = pyc.out_pylist()
-print(olist)
+print([type(e) for e in olist], olist)

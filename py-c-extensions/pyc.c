@@ -59,8 +59,18 @@ static PyObject *out_pylist(PyObject *self, PyObject *args) {
     g_array_remove_index(a, 1);
     printf("There are now %d items in the array\n", a->len);
 
-    //PyObject *a_array = PyArray
+    PyListObject *list = (PyListObject *)Py_BuildValue("[]");
+    for (int i = 0; i < a->len; i++) {
+        PyObject *e = Py_BuildValue("s", g_array_index(a, char*, i));
+        PyList_Append(list, e);
+    }
+    for (int i = 0; i < a->len; i++) {
+        PyObject *e = Py_BuildValue("i", i);
+        PyList_Append(list, e);
+    }
     g_array_free(a, FALSE);
-    Py_INCREF(Py_None);
-    return Py_None;
+
+    //Py_INCREF(Py_None);
+    //return Py_None;
+    return list;
 }
